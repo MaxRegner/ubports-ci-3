@@ -42,13 +42,7 @@ jobs:
         mkdir -p ~/bin
         wget 'https://storage.googleapis.com/git-repo-downloads/repo' -P ~/bin
         chmod +x ~/bin/repo
-        git config --global user.name "TheKit"
-        git config --global user.email "thekit@disroot.org"
-        source halium.env
-        echo "::set-env name=VENDOR::$(echo $VENDOR)"
-        echo "::set-env name=DEVICE::$(echo $DEVICE)"
-        echo "::set-env name=ANDROID_ROOT::$(echo $ANDROID_ROOT)"
-
+       
     - name: Downloading source code
       run: |
         source halium.env
