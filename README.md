@@ -1,2 +1,2 @@
 # ci
-Use github-actions to build Halium systemimage for UBPorts
+Use github-actions to build Halium systemimage for UBPorts for kugo
