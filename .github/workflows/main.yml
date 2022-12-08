@@ -5,7 +5,7 @@
 # Credit: https://github.com/P3TERX/Actions-OpenWrt
 #=================================================
 
-name: Build Ubports
+name: Build systemimage
 
 on: 
   release:
