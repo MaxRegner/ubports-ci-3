@@ -1,27 +1,20 @@
 #=================================================
 # Description: Build ubports using GitHub Actions
 # Lisence: MIT
-# Contributor: 0312birdzhang
-# Maintainer: Danct12
+# Author: 0312birdzhang
 # Credit: https://github.com/P3TERX/Actions-OpenWrt
 #=================================================
 
-name: Build System Image
+name: Build systemimage
 
 on: 
-  push:
-    branches:
-      - master
   release:
     types: [published]
 
+jobs:
+
+  build:
     runs-on: ubuntu-18.04
-
-    env:
-      VENDOR: xiaomi
-      DEVICE: santoni
-      ANDROID_ROOT: /home/runner/work/halium/
-
     steps:
     - name: Checkout
       uses: actions/checkout@master
@@ -45,8 +38,12 @@ on:
         mkdir -p ~/bin
         wget 'https://storage.googleapis.com/git-repo-downloads/repo' -P ~/bin
         chmod +x ~/bin/repo
-        git config --global user.name "UBports Redmi 4X CI"
-        git config --global user.email "thisemaildoesnotexist@exist.com"
+        git config --global user.name "TheKit"
+        git config --global user.email "thekit@disroot.org"
+        source halium.env
+        echo "::set-env name=VENDOR::$(echo $VENDOR)"
+        echo "::set-env name=DEVICE::$(echo $DEVICE)"
+        echo "::set-env name=ANDROID_ROOT::$(echo $ANDROID_ROOT)"
 
     - name: Downloading source code
       run: |
@@ -54,10 +51,17 @@ on:
         mkdir -p $ANDROID_ROOT
         cd $ANDROID_ROOT
         repo init -u https://github.com/Halium/android -b halium-9.0 --depth=1
-        mkdir -p $ANDROID_ROOT/.repo/local_manifests
-        wget https://raw.githubusercontent.com/ubports-santoni/halium-devices/halium-7.1/manifests/"$VENDOR"_"$DEVICE".xml -O $ANDROID_ROOT/.repo/local_manifests/$DEVICE.xml
+        wget https://raw.githubusercontent.com/MaxRegner/halium-devices/halium-9.0/manifests/sony_kugo.xml -O $ANDROID_ROOT/.repo/local_manifests/$DEVICE.xml
         repo sync -j8 -c --no-clone-bundle --no-tags
     
+    - name: Clone device spec source
+      run: |
+        source halium.env
+        git clone https://github.com/ubports-on-fxtec-pro1/android_device_fxtec_pro1.git $ANDROID_ROOT/device/fxtec/pro1 --depth=1
+        git clone https://github.com/ubports-on-fxtec-pro1/android_device_idealte_msm8998-common.git $ANDROID_ROOT/device/idealte/msm8998-common --depth=1
+        git clone https://github.com/ubports-on-fxtec-pro1/proprietary_vendor_idealte.git $ANDROID_ROOT/vendor/idealte --depth=1
+        git clone https://github.com/ubports-on-fxtec-pro1/android_kernel_idealte_msm8998 $ANDROID_ROOT/kernel/idealte/msm8953 --depth=1
+
     - name: Build HAL
       run: |
         chmod +x build-hal.sh
@@ -68,16 +72,10 @@ on:
       uses: actions/upload-artifact@master
       with:
         name: halium-boot image
-        path: /home/runner/work/halium/out/target/product/santoni/halium-boot.img
-
-    - name : Upload recovery image
-      uses: actions/upload-artifact@master
-      with:
-        name: Recovery image
-        path: /home/runner/work/halium/out/target/product/santoni/recovery.img
+        path: ${{env.ANDROID_ROOT}}/out/target/product/${{env.DEVICE}}/halium-boot.img
 
     - name : Upload system image
       uses: actions/upload-artifact@master
       with:
         name: System image
-        path: /home/runner/work/halium/out/target/product/santoni/system.img
+        path: ${{env.ANDROID_ROOT}}/out/target/product/${{env.DEVICE}}/system.img
