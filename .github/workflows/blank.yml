@@ -49,7 +49,7 @@ jobs:
         mkdir -p $ANDROID_ROOT
         cd $ANDROID_ROOT
         repo init -u https://github.com/Halium/android -b halium-9.0 --depth=1
-        wget https://raw.githubusercontent.com/MaxRegner/halium-devices/halium-9.0/manifests/kugo.xml -O /home/runner/work/halium/.repo/local_manifests/kugo.xml
+        wget https://raw.githubusercontent.com/MaxRegner/halium-devices/halium-9.0/manifests/kugo.xml -O .repo/local_manifests/kugo.xml
         repo sync -j8 -c --no-clone-bundle --no-tags
     
     - name: Clone device spec source
