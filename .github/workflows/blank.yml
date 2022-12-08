@@ -1,15 +1,20 @@
 #=================================================
 # Description: Build ubports using GitHub Actions
 # Lisence: MIT
-# Author: 0312birdzhang
+# Contributor: 0312birdzhang
+# Maintainer: Danct12
 # Credit: https://github.com/P3TERX/Actions-OpenWrt
 #=================================================
 
-name: Build systemimage
+name: Build System Image
 
 on: 
+  push:
+    branches:
+      - master
   release:
     types: [published]
+
 
 jobs:
 
