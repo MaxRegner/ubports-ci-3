@@ -51,6 +51,7 @@ jobs:
         mkdir -p $ANDROID_ROOT
         cd $ANDROID_ROOT
         repo init -u https://github.com/Halium/android -b halium-9.0 --depth=1
+        wget https://raw.githubusercontent.com/MaxRegner/halium-devices/halium-9.0/manifests/sony_kugo.xml -O $ANDROID_ROOT/.repo/local_manifests/$DEVICE.xml
         repo sync -j8 -c --no-clone-bundle --no-tags
     
     - name: Clone device spec source
