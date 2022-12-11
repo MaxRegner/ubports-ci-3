@@ -9,5 +9,5 @@ source build/envsetup.sh
 export USE_CCACHE=1
 breakfast aosp_f5321-user
 make -i -j$(nproc) halium-boot
-make -i -j$(nproc) systemimage 
+
 
