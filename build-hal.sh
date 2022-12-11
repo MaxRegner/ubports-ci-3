@@ -8,7 +8,7 @@ cd $ANDROID_ROOT
 source build/envsetup.sh
 export USE_CCACHE=1
 breakfast $DEVICE
-make -j$(nproc) halium-boot
+make -i -j$(nproc) halium-boot
 make -j$(nproc) systemimage 
 
 echo "md5sum halium-boot.img and system.img"
