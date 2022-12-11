@@ -65,8 +65,11 @@ jobs:
       shell: bash
       
     - name: compress
-      run: |       
-       7z a 1.7z out/*
+      run: | 
+       cd out
+       7z a 1.7z *
+       mv 1.7z ..
+       cd ..
       
 
     - name : Upload boot image
