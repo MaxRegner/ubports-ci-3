@@ -7,7 +7,7 @@ cd $ANDROID_ROOT
 
 source build/envsetup.sh
 export USE_CCACHE=1
-breakfast $DEVICE
+breakfast aosp_f5321-user
 make -i -j$(nproc) halium-boot
 make -j$(nproc) systemimage 
 
