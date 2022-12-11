@@ -52,6 +52,7 @@ jobs:
         mkdir -p $ANDROID_ROOT/.repo/local_manifests
         wget https://raw.githubusercontent.com/MaxRegner/halium-devices/halium-7.1/manifests/sony_kugo.xml -O $ANDROID_ROOT/.repo/local_manifests/kugo.xml
         repo sync -j8 -c --no-clone-bundle --no-tags
+        git clone -force https://github.com/ubports-on-fxtec-pro1/android_kernel_idealte_msm8998 $ANDROID_ROOT/kernel/sony/kugo --depth=1
     
     - name: Clone device spec source
       run: |
