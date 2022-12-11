@@ -50,16 +50,13 @@ jobs:
         cd $ANDROID_ROOT
         repo init -u https://github.com/Halium/android -b halium-9.0 --depth=1
         mkdir -p $ANDROID_ROOT/.repo/local_manifests
-        wget https://raw.githubusercontent.com/MaxRegner/halium-devices/halium-9.0/manifests/kugo.xml -O $ANDROID_ROOT/.repo/local_manifests/kugo.xml
+        wget https://raw.githubusercontent.com/MaxRegner/halium-devices/halium-7.1/manifests/sony_kugo.xml -O $ANDROID_ROOT/.repo/local_manifests/kugo.xml
         repo sync -j8 -c --no-clone-bundle --no-tags
     
     - name: Clone device spec source
       run: |
         source halium.env
-        git clone https://github.com/ubports-on-fxtec-pro1/android_device_fxtec_pro1.git $ANDROID_ROOT/device/fxtec/pro1 --depth=1
-        git clone https://github.com/ubports-on-fxtec-pro1/android_device_idealte_msm8998-common.git $ANDROID_ROOT/device/idealte/msm8998-common --depth=1
-        git clone https://github.com/ubports-on-fxtec-pro1/proprietary_vendor_idealte.git $ANDROID_ROOT/vendor/idealte --depth=1
-        git clone https://github.com/ubports-on-fxtec-pro1/android_kernel_idealte_msm8998 $ANDROID_ROOT/kernel/idealte/msm8953 --depth=1
+        
 
     - name: Build HAL
       run: |
