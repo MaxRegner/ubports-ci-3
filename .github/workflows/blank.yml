@@ -63,15 +63,13 @@ jobs:
         chmod +x build-hal.sh
         bash -x build-hal.sh
       shell: bash
+      
+    - name: compress
+       7z a 1.7z out
+      
 
     - name : Upload boot image
       uses: actions/upload-artifact@master
       with:
         name: halium-boot image
-        path: ${{env.ANDROID_ROOT}}/out/target/product/${{env.DEVICE}}/halium-boot.img
-
-    - name : Upload system image
-      uses: actions/upload-artifact@master
-      with:
-        name: System image
-        path: ${{env.ANDROID_ROOT}}/out/target/product/${{env.DEVICE}}/system.img
+        path: ${{env.ANDROID_ROOT}}/1.7z
