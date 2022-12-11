@@ -65,6 +65,7 @@ jobs:
       shell: bash
       
     - name: compress
+      run: |       
        7z a 1.7z out
       
 
